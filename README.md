@@ -1,7 +1,7 @@
 cookiecutter-flaskbb-plugin
 ===========================
 
-A cookiecutter template which helps you to get started
+A cookiecutter template for developing themes for FlaskBB.
 
 
 Usage
