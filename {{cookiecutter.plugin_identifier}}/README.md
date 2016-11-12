@@ -1,7 +1,7 @@
 {{ cookiecutter.plugin_name }}
 {{ '=' * cookiecutter.plugin_name|count }}
 
-{{ cookiecutter.plugin_description}}
+{{ cookiecutter.description}}
 
 
 Installation

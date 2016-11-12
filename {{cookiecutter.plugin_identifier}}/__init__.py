@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-    flaskbb.plugins.portal
-    ~~~~~~~~~~~~~~~~~~~~~~
+    flaskbb.plugins.{{ cookiecutter.plugin_identifier }}
+    ~~~~~~~~~~~~~~~~{{ '~' * cookiecutter.plugin_identifier|count }}
 
     A Portal Plugin for FlaskBB.
 
@@ -15,10 +15,10 @@ from flaskbb.utils.populate import (create_settings_from_fixture,
                                     delete_settings_from_fixture)
 from flaskbb.forum.models import Forum
 
-from .views import {{ cookiecutter.plugin_identifier }}, inject_navigation_link
+from .views import plugin_bp, inject_navigation_link
 
 __version__ = "0.1"
-__plugin__ = "HelloWorld"
+__plugin__ = "{{ cookiecutter.plugin_classname }}"
 
 
 fixture = (
@@ -27,11 +27,10 @@ fixture = (
         "description": "Configure the {{ cookiecutter.plugin_name }} Plugin",
         "settings": (
             ('{{ cookiecutter.plugin_identifier }}_display_in_navigation', {
-                'value':        True,
-                'value_type':   "boolean",
-                'name':         "Show Link in Navigation",
-                'description':  "If enabled, it will show the link in the navigation",
-                'extra': {"min": 1},
+                'value':       True,
+                'value_type':  "boolean",
+                'name':        "Show Link in Navigation",
+                'description': "If enabled, it will show the link in the navigation"
             }),
         ),
     }),
@@ -42,7 +41,7 @@ class {{ cookiecutter.plugin_classname }}(FlaskBBPlugin):
     settings_key = 'plugin_{{ cookiecutter.plugin_identifier }}'
 
     def setup(self):
-        self.register_blueprint({{ cookiecutter.plugin_identifier }}, url_prefix="/{{ cookiecutter.project_name.lower().replace(' ', '-') }}")
+        self.register_blueprint(plugin_bp, url_prefix="/{{ cookiecutter.plugin_name.lower().replace(' ', '-') }}")
         connect_event("before-first-navigation-element", inject_navigation_link)
 
     def install(self):
