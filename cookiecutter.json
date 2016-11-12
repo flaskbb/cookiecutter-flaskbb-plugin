@@ -1,0 +1,11 @@
+{
+    "full_name": "Your Name",
+    "email": "Your email address (eq. you@example.com)",
+    "plugin_name": "Plugin Name",
+    "plugin_identifier": "{{ cookiecutter.plugin_name.lower().replace(' ', '_') }}",
+    "plugin_description": "A description of the plugin",
+    "plugin_classname": "The Plugin Class Name. i.e. HelloWorldPlugin",
+    "website": "http://flaskbb.org",
+    "version": "0.1.0",
+    "_extensions": ["jinja2_time.TimeExtension"]
+}
