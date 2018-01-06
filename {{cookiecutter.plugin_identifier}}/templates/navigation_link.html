@@ -1,9 +1,0 @@
-{%- raw -%}
-{% if flaskbb_config["{% endraw %}{{ cookiecutter.plugin_identifier.upper() }}{% raw %}_DISPLAY_IN_NAVIGATION"] %}
-<li {% if {% endraw %}'{{ cookiecutter.plugin_identifier }}.index'{% raw %} == request.endpoint %}class="active"{% endif %}>
-    <a href="{{ url_for({% endraw %}'{{ cookiecutter.plugin_identifier }}.index'{% raw %}) }}">
-        <i class="fa fa-home"></i> {% endraw %}{{ cookiecutter.plugin_name }}{% raw %}
-    </a>
-</li>
-{% endif %}
-{%- endraw -%}

@@ -1,0 +1,27 @@
+{% extends theme("layout.html") %}
+
+{% block content %}
+<div class="row">
+
+  <div class="col-md-12">
+    <div class="panel panel-default panel-widget">
+      <div class="panel-heading panel-widget-heading">
+        <h3 class="panel-title">{% trans %}Plugin Info{% endtrans %}</h3>
+      </div>
+      <div class="panel-body panel-widget-body" style="padding-top: 0px">
+
+        <span>{% trans %}Plugin ID{% endtrans %}: {{ plugin.id }}</span>
+        <span>{% trans %}Plugin Name{% endtrans %}: {{ plugin.name }}</span>
+        <span>{% trans %}Plugin Enabled{% endtrans %}: {{ plugin.enabled }}</span>
+        <span>{% trans %}Plugin Settings{% endtrans %}: {{ plugin.settings }}</span>
+        <span>{% trans %}Plugin Info{% endtrans %}: {{ plugin.info }}</span>
+        <span>{% trans %}Plugin Installed{% endtrans %}: {{ plugin.is_installed }}</span>
+        <span>{% trans %}Plugin Installable{% endtrans %}: {{ plugin.is_installable }}</span>
+
+      </div> <!-- /.panel-body -->
+    </div>
+
+  </div>
+
+</div>
+{% endblock %}

@@ -1,9 +1,0 @@
-{
-    "identifier": "{{ cookiecutter.plugin_identifier }}",
-    "name": "{{ cookiecutter.plugin_name }}",
-    "author": "{{ cookiecutter.full_name }}",
-    "website": "{{ cookiecutter.website }}",
-    "license": "BSD License",
-    "description": "{{ cookiecutter.description }}",
-    "version": "{{ cookiecutter.version }}"
-}
