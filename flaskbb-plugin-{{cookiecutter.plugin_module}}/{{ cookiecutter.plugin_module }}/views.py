@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
     {{ cookiecutter.plugin_module }}.views
-    {{ "~" * cookiecutter.plugin_module + "views"|count }}
+    {{ "~" * cookiecutter.plugin_module|count }}~~~~~~
 
     This module contains the views for the
     {{ cookiecutter.plugin_name }} Plugin.
