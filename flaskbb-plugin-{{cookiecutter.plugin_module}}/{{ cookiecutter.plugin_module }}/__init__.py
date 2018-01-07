@@ -19,11 +19,7 @@ from .views import {{ cookiecutter.plugin_module + "_bp" }}
 __version__ = "{{ cookiecutter.version }}"
 
 
-def available_forums():
-    forums = Forum.query.order_by(Forum.id.asc()).all()
-    return [(forum.id, forum.title) for forum in forums]
-
-
+# connect the hooks
 def flaskbb_load_migrations():
     return os.path.join(os.path.dirname(__file__), "migrations")
 
@@ -37,9 +33,10 @@ def flaskbb_load_blueprints(app):
 
 
 def flaskbb_tpl_before_navigation():
-    return render_template("navigation_snippet.html")
+    return render_template("{{ cookiecutter.plugin_module }}_navlink.html")
 
 
+# plugin settings
 SETTINGS = {
     "foobar": {
         "value": 10,

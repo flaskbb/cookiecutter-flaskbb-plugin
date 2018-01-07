@@ -1,20 +1,25 @@
-"""
-    This is a
-    multiline
-    description for the portal
-
-    plugin.
-"""
-from setuptools import find_packages, setup
-from setuptools.command.install import install
-
 {%- set license_classifiers = {
-    "MIT license": "License :: OSI Approved :: MIT License",
-    "BSD license": "License :: OSI Approved :: BSD License",
+    "MIT License": "License :: OSI Approved :: MIT License",
+    "BSD License": "License :: OSI Approved :: BSD License",
     "GPLv3": "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
     "Apache Software License 2.0": "License :: OSI Approved :: Apache Software License"
 }
-%}
+-%}
+# -*- coding: utf-8 -*-
+"""
+    {{ cookiecutter.plugin_module }}
+    {{ "~" * cookiecutter.plugin_module|count }}
+
+    {{ cookiecutter.description }}
+
+    :copyright: (c) {% now "utc", "%Y" %} by {{ cookiecutter.author_name }}.
+    :license: {{ cookiecutter.license }}, see LICENSE for more details.
+"""
+import ast
+import re
+from setuptools import find_packages, setup
+from setuptools.command.install import install
+
 
 with open("{{ cookiecutter.plugin_module }}/__init__.py", "rb") as f:
     version_line = re.search(
@@ -44,7 +49,7 @@ setup(
 {%- endif %}
     author="{{ cookiecutter.author_name.replace('\"', '\\\"') }}",
     author_email="{{ cookiecutter.email }}",
-    description="A portal plugin for FlaskBB",
+    description="{{ cookiecutter.description }}",
     long_description=__doc__,
     keywords="flaskbb plugin",
     cmdclass={"install": InstallWithTranslations},
@@ -62,7 +67,7 @@ setup(
         ]
     },
     install_requires=[
-        "FlaskBB>=2.0"  # pin to a version to has pluggy integration
+        "FlaskBB"  # pin to a version to has pluggy integration
     ],
     setup_requires=[
         "Babel",

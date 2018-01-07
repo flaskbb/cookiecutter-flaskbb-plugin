@@ -14,9 +14,4 @@ Install *flaskbb-plugin-{{ cookiecutter.plugin_name }}* with
 
 License
 -------
-This project is licensed under the terms of the
-{% if cookiecutter.license == "BSD" %}
-[BSD License](/LICENSE)
-{% elif cookiecutter.license == "MIT" %}
-[MIT License](/LICENSE)
-{% endif %}
+This project is licensed under the terms of the [{{ cookiecutter.license }}](/LICENSE).
