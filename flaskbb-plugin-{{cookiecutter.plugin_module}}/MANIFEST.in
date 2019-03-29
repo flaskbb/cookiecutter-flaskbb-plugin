@@ -1,4 +1,5 @@
 graft {{ cookiecutter.plugin_module }}/templates
 graft {{ cookiecutter.plugin_module }}/translations
+graft {{ cookiecutter.plugin_module }}/migrations
 
 global-exclude *.pyc __pycache__ .keep
