@@ -1,0 +1,75 @@
+{%- set spdx_licenses = {
+    "MIT License": "MIT",
+    "BSD License": "BSD-3-Clause",
+    "GPLv3": "GPL-3.0-only",
+    "Apache Software License 2.0": "Apache-2.0"
+}
+-%}
+[project]
+name = "flaskbb-plugin-{{ cookiecutter.plugin_module }}"
+version = "{{ cookiecutter.version }}"
+dependencies = [
+    "FlaskBB",
+]
+requires-python = ">=3.12"
+authors = [
+    {name = "{{ cookiecutter.author_name.replace('"', '\\"') }}", email = "{{ cookiecutter.email }}"},
+]
+maintainers = [
+    {name = "{{ cookiecutter.author_name.replace('"', '\\"') }}", email = "{{ cookiecutter.email }}"},
+]
+description = "{{ cookiecutter.description }}"
+readme = "README.md"
+{%- if cookiecutter.license in spdx_licenses %}
+license = "{{ spdx_licenses[cookiecutter.license] }}"
+license-files = ["LICEN[CS]E"]
+{%- endif %}
+keywords = ["flaskbb", "plugin", "{{ cookiecutter.plugin_module }}"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Framework :: Flask",
+    "Environment :: Web Environment",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[project.urls]
+Homepage = "{{ cookiecutter.website }}"
+
+[project.entry-points.flaskbb_plugins]
+"{{ cookiecutter.plugin_name }}" = "{{ cookiecutter.plugin_module }}"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[dependency-groups]
+dev = [
+    "Babel",
+    "pytest",
+    "pytest-cov",
+    "ruff",
+    "twine",
+]
+
+[tool.hatch.build.targets.sdist]
+only-include = ["{{ cookiecutter.plugin_module }}"]
+artifacts = ["*.mo"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["{{ cookiecutter.plugin_module }}"]
+artifacts = ["*.mo"]
+
+[tool.uv]
+package = true
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.ruff.lint]
+ignore = ["E711", "E712"]

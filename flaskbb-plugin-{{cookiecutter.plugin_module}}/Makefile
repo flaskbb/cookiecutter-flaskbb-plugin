@@ -1,13 +1,13 @@
-.PHONY: clean help test lint isort docs wheel upload update-translations compile-translations add-translation
+.PHONY: clean help test lint format docs dist upload update-translations compile-translations add-translation
 
 help:
 	@echo "  clean                  remove unwanted stuff"
 	@echo "  test                   run the testsuite"
 	@echo "  docs                   build the documentation"
 	@echo "  lint                   check the source for style errors"
-	@echo "  isort                  sort the python imports"
-	@echo "  wheel                  creates a wheel package"
-	@echo "  upload                 uploads a new version of the wheel package to PyPI"
+	@echo "  format                 sort imports and reformat the code"
+	@echo "  dist                   creates distribution packages"
+	@echo "  upload                 uploads a new version of the package to PyPI"
 	@echo "  update-translations    updates the translations"
 	@echo "  compile-translations   compiles the translations"
 	@echo "  add-translation        adds a new language to the translations"
@@ -24,23 +24,21 @@ test:
 docs:
 	$(MAKE) -C docs html
 
-lint:check-flake8
-	flake8
+lint:
+	ruff check
 
-check-flake8:
-	@type flake8 >/dev/null 2>&1 || echo "Flake8 is not installed. You can install it with 'pip install flake8'."
+format:
+	# sort imports / remove unused
+	ruff check --fix --select I
+	ruff check --fix
+	# reformat
+	ruff format
 
-isort:check-isort
-	isort --order-by-type -rc -up
+dist:
+	uv build
 
-check-isort:
-	@type isort >/dev/null 2>&1 || echo "isort is not installed. You can install it with 'pip install isort'."
-
-wheel:
-	python setup.py bdist_wheel
-
-upload:wheel
-	twine upload dist/*
+upload: dist
+	twine upload dist/{*.tar.gz,*.whl} --skip-existing
 
 update-translations:
 	pybabel extract -F babel.cfg -k lazy_gettext -o {{ cookiecutter.plugin_module }}/translations/messages.pot .
