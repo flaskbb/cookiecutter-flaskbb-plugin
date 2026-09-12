@@ -1,30 +1,28 @@
-# -*- coding: utf-8 -*-
 """
-    {{ cookiecutter.plugin_module }}
-    {{ "~" * cookiecutter.plugin_module|count }}
+{{ cookiecutter.plugin_module }}
+{{ "~" * cookiecutter.plugin_module|count }}
 
-    A {{ cookiecutter.plugin_name }} Plugin for FlaskBB.
+A {{ cookiecutter.plugin_name }} Plugin for FlaskBB.
 
-    :copyright: (c) {% now "utc", "%Y" %} by {{ cookiecutter.author_name }}.
-    :license: {{ cookiecutter.license }}, see LICENSE for more details.
+:copyright: (c) {% now "utc", "%Y" %} by {{ cookiecutter.author_name }}.
+:license: {{ cookiecutter.license }}, see LICENSE for more details.
 """
+
 import os
 
+from flask import Flask
+from flask_babelplus import gettext as _
+from flaskbb.display.navigation import NavigationLink
+from flaskbb.settings import IntSetting, SettingGroup
 from pluggy import HookimplMarker
 
-from flaskbb.forum.models import Forum
-from flaskbb.utils.forms import SettingValueType
-from flaskbb.utils.helpers import render_template
-
-from .views import {{ cookiecutter.plugin_module + "_bp" }}
+from .views import {{ cookiecutter.plugin_module }}_bp
 
 __version__ = "{{ cookiecutter.version }}"
-
 
 hookimpl = HookimplMarker("flaskbb")
 
 
-# connect the hooks
 @hookimpl
 def flaskbb_load_migrations():
     return os.path.join(os.path.dirname(__file__), "migrations")
@@ -36,22 +34,40 @@ def flaskbb_load_translations():
 
 
 @hookimpl
-def flaskbb_load_blueprints(app):
-    app.register_blueprint({{ cookiecutter.plugin_module + "_bp" }}, url_prefix="/{{ cookiecutter.plugin_module }}")
+def flaskbb_load_blueprints(app: Flask):
+    app.register_blueprint(
+        {{ cookiecutter.plugin_module }}_bp,
+        url_prefix=app.config.get("PLUGIN_{{ cookiecutter.plugin_module.upper() }}_URL_PREFIX", "/{{ cookiecutter.plugin_module }}"),
+    )
+
+
+# the group key must match the plugin name registered in the
+# flaskbb_plugins entry point
+SETTINGS = SettingGroup(
+    key="{{ cookiecutter.plugin_module }}",
+    name="{{ cookiecutter.plugin_name }} Settings",
+    description="{{ cookiecutter.description }}",
+    settings=(
+        IntSetting(
+            key="FOOBAR",
+            value=10,
+            min=1,
+            name="Foobar Number",
+            description="The number of foo in bars.",
+        ),
+    ),
+)
 
 
 @hookimpl
-def flaskbb_tpl_before_navigation():
-    return render_template("{{ cookiecutter.plugin_module }}_navlink.html")
+def flaskbb_load_setting_groups():
+    return SETTINGS
 
 
-# plugin settings
-SETTINGS = {
-    "foobar": {
-        "value": 10,
-        "value_type": SettingValueType.integer,
-        "name": "Foobar Number",
-        "description": "The number of foo in bars.",
-        "extra": {"min": 1},
-    },
-}
+@hookimpl
+def flaskbb_tpl_navigation_before():
+    return NavigationLink(
+        endpoint="{{ cookiecutter.plugin_module }}.index",
+        name=_("{{ cookiecutter.plugin_name }}"),
+        icon="fas fa-home",
+    )

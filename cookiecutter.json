@@ -1,11 +1,19 @@
 {
     "author_name": "Your Name",
     "email": "you@example.org",
-    "website": "https://flaskbb.org",
     "plugin_name": "foobar",
     "plugin_module": "{{ cookiecutter.plugin_name.lower().replace(' ', '_') }}",
     "description": "A short description of the plugin.",
-    "license": ["MIT License", "BSD License", "GPLv3", "Apache Software License 2.0", "Not open source"],
+    "repository": "",
+    "license": [
+        "MIT License",
+        "BSD License",
+        "GPLv3",
+        "Apache Software License 2.0",
+        "Not open source"
+    ],
     "version": "0.1.0",
-    "_extensions": ["jinja2_time.TimeExtension"]
+    "_extensions": [
+        "jinja2_time.TimeExtension"
+    ]
 }

@@ -3,14 +3,15 @@
 help:
 	@echo "  clean                  remove unwanted stuff"
 	@echo "  test                   run the testsuite"
-	@echo "  docs                   build the documentation"
 	@echo "  lint                   check the source for style errors"
 	@echo "  format                 sort imports and reformat the code"
+	@echo "  docs                   build the documentation"
 	@echo "  dist                   creates distribution packages"
-	@echo "  upload                 uploads a new version of the package to PyPI"
+	@echo "  upload                 uploads a new version of the wheel package to PyPI"
 	@echo "  update-translations    updates the translations"
 	@echo "  compile-translations   compiles the translations"
 	@echo "  add-translation        adds a new language to the translations"
+
 
 clean:
 	find . -name '*.pyc' -exec rm -f {} +
@@ -19,26 +20,24 @@ clean:
 	find . -name '__pycache__' -exec rm -rf {} +
 
 test:
-	py.test
-
-docs:
-	$(MAKE) -C docs html
+	pytest
 
 lint:
 	ruff check
 
 format:
-	# sort imports / remove unused
 	ruff check --fix --select I
 	ruff check --fix
-	# reformat
 	ruff format
+
+docs:
+	$(MAKE) -C docs html
 
 dist:
 	uv build
 
 upload: dist
-	twine upload dist/{*.tar.gz,*.whl} --skip-existing
+	uv publish
 
 update-translations:
 	pybabel extract -F babel.cfg -k lazy_gettext -o {{ cookiecutter.plugin_module }}/translations/messages.pot .

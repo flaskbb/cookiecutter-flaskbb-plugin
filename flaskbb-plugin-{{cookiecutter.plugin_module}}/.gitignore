@@ -1,33 +1,44 @@
-# Byte-compiled / optimized files
+# Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
+*$py.class
 
 # Distribution / packaging
+.Python
 build/
+develop-eggs/
 dist/
-*.egg-info/
+downloads/
+eggs/
 .eggs/
-
-# Virtual environments
-.venv/
-env/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
 
 # Unit test / coverage reports
-.pytest_cache/
+htmlcov/
+.tox/
 .coverage
 .coverage.*
-htmlcov/
 .cache
-
-# Ruff
+.pytest_cache/
 .ruff_cache/
+nosetests.xml
+coverage.xml
+*,cover
+.hypothesis/
 
-# Translations (compiled catalogs are generated from the .po sources)
+# Translations
 *.mo
+*.pot
 
-# Editors
-.vscode/
-.idea/
+*.log
 
-# pyenv python configuration file
-.python-version
+.vscode
+.venv/
+.mypy_cache/
