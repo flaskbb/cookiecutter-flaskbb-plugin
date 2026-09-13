@@ -23,4 +23,4 @@ def index():
     if plugin and not plugin.is_installed:
         flash(_("Plugin is not installed."), "warning")
 
-    return render_template("index.html", plugin=plugin)
+    return render_template("{{ cookiecutter.plugin_module }}/index.html", plugin=plugin)
