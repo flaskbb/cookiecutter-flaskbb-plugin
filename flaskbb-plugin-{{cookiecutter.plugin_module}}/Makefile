@@ -41,7 +41,11 @@ upload: dist
 
 update-translations:
 	pybabel extract -F babel.cfg -k lazy_gettext -o {{ cookiecutter.plugin_module }}/translations/messages.pot .
-	pybabel update -i {{ cookiecutter.plugin_module }}/translations/messages.pot -d {{ cookiecutter.plugin_module }}/translations/
+	@if ls {{ cookiecutter.plugin_module }}/translations/*/LC_MESSAGES/messages.po >/dev/null 2>&1; then \
+		pybabel update -i {{ cookiecutter.plugin_module }}/translations/messages.pot -d {{ cookiecutter.plugin_module }}/translations/; \
+	else \
+		echo "No catalogs yet, run 'make add-translation' to add a language."; \
+	fi
 
 add-translation:
 	@read -p "Enter new language shortcode:" lang; \

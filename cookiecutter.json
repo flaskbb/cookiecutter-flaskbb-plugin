@@ -12,8 +12,5 @@
         "Apache Software License 2.0",
         "Not open source"
     ],
-    "version": "0.1.0",
-    "_extensions": [
-        "jinja2_time.TimeExtension"
-    ]
+    "version": "0.1.0"
 }
