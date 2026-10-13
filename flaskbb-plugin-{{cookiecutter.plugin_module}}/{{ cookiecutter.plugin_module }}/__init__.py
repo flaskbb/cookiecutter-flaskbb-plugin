@@ -18,8 +18,6 @@ from pluggy import HookimplMarker
 
 from .views import {{ cookiecutter.plugin_module }}_bp
 
-__version__ = "{{ cookiecutter.version }}"
-
 hookimpl = HookimplMarker("flaskbb")
 
 

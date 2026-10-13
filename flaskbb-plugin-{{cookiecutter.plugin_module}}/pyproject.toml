@@ -9,7 +9,7 @@
 name = "flaskbb-plugin-{{ cookiecutter.plugin_module }}"
 version = "{{ cookiecutter.version }}"
 dependencies = [
-    "FlaskBB>=3.0.0",
+    "FlaskBB>=3.0.0rc1",
 ]
 requires-python = ">=3.12"
 authors = [
